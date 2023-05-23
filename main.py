@@ -8,10 +8,13 @@ from fastapi.security import HTTPBearer
 from config.database import Session, engine, Base
 from models.movies import Movie as MovieModel
 from fastapi.encoders import jsonable_encoder
+from middlewares.error_handler import ErrorHandler
+from middlewares.jwt_bearer import JWTBearer
 
 app = FastAPI()
 app.title = "Mi aplicación con  FastAPI"
 app.version = "0.0.1"
+app.add_middleware(ErrorHandler)
 
 # bind depicts the engine to create the database
 Base.metadata.create_all(bind=engine)
